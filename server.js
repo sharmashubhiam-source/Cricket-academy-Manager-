@@ -214,8 +214,8 @@ app.delete("/api/staff/:id",auth,admin,async(req,res,next)=>{try{await pool.quer
 app.get("/api/staff-attendance",auth,staffOrAdmin,async(req,res,next)=>{try{const d=String(req.query.date||"");let sql=`SELECT a.*,s.name,s.role FROM staff_attendance a JOIN staff s ON s.id=a.staff_id`;const params=[];const where=[];if(req.session.role!=='admin'){params.push(req.session.staffId);where.push(`a.staff_id=$${params.length}`)}if(d&&validDate(d)){params.push(d);where.push(`a.date=$${params.length}`)}if(where.length)sql+=' WHERE '+where.join(' AND ');sql+=' ORDER BY a.date DESC,s.name';res.json((await pool.query(sql,params)).rows)}catch(e){next(e)}});
 app.post("/api/staff-attendance",auth,staffOrAdmin,async(req,res,next)=>{try{let a=req.body||{};if(!a.staff_id||!a.date||!a.status)return res.status(400).json({error:"Staff, date and status required"});if(req.session.role!=='admin'&&Number(a.staff_id)!==Number(req.session.staffId))return res.status(403).json({error:"You can only update your own attendance"});await pool.query(`INSERT INTO staff_attendance(staff_id,date,status,check_in,check_out,remarks) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(staff_id,date) DO UPDATE SET status=EXCLUDED.status,check_in=EXCLUDED.check_in,check_out=EXCLUDED.check_out,remarks=EXCLUDED.remarks`,[Number(a.staff_id),a.date,a.status,a.check_in||null,a.check_out||null,a.remarks||null]);res.json({ok:true})}catch(e){next(e)}});
 
-app.use(express.static(path.join(__dirname,"public")));
-app.use((req,res)=>res.sendFile(path.join(__dirname,"public","index.html")));
+app.use(express.static(__dirname));
+app.use((req,res)=>res.sendFile(path.join(__dirname,"index.html")));
 app.use((err,req,res,next)=>{console.error(err);res.status(500).json({error:"Server error"})});
 
 await initDb();
