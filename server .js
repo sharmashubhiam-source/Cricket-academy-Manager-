@@ -95,10 +95,10 @@ if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      connectSrc: ["'self'"],
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'"],
+scriptSrcAttr: ["'unsafe-inline'"],
+connectSrc: ["'self'"],
       imgSrc: ["'self'", "data:"],
       frameAncestors: ["'none'"],
       baseUri: ["'self'"]
