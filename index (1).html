@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cricket Academy Manager</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f7fb;color:#172033}
+header{background:#17365d;color:#fff;padding:16px}
+main{max-width:1250px;margin:auto;padding:14px}
+.nav{display:flex;gap:7px;overflow:auto;background:#fff;padding:10px;position:sticky;top:0;z-index:2}
+.nav button{background:#eef3f9;color:#17365d;white-space:nowrap}
+.nav button.on{background:#17365d;color:#fff}
+.card{background:#fff;padding:16px;border-radius:14px;border:1px solid #dde4ee;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.stat{font-size:24px;font-weight:800;margin-top:5px}
+input,select{padding:10px;width:100%;box-sizing:border-box;margin:5px 0 10px;border:1px solid #ccd6e3;border-radius:8px}
+button{padding:10px 14px;border:0;border-radius:8px;background:#17365d;color:white;font-weight:700;cursor:pointer}
+.danger{background:#c62828}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left;font-size:13px;white-space:nowrap}
+th{background:#edf3f9}
+.page{display:none}.page.on{display:block}
+.login{max-width:380px;margin:60px auto}.hidden{display:none}
+.wa{background:#e7f7ee;color:#137443;padding:7px;border-radius:7px;text-decoration:none}
+.muted{color:#65748b;font-size:12px}
+.badge{padding:5px 8px;border-radius:99px;background:#eef3f9;font-size:12px}
+.ok{background:#e7f7ee;color:#137443}.pending{background:#fff0f0;color:#b42318}
+.warning{background:#fff8e1;color:#8a5b00}
+.toolbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+.toolbar>div{min-width:180px;flex:1}
+.notice{padding:10px 12px;border-radius:8px;background:#eef6ff;margin-bottom:12px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.grid{grid-template-columns:1fr 1fr}.card{padding:12px}}
+</style>
+</head>
+<body>
+<div id="login" class="login card">
+  <h2>🔐 Cricket Academy Manager</h2>
+  <p class="muted">Secure Admin / Staff Login</p>
+  <input id="u" placeholder="Username" autocomplete="username">
+  <input id="p" type="password" placeholder="Password" autocomplete="current-password">
+  <button id="loginBtn" type="button">Login</button>
+  <p id="err"></p>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <b>🏏 Cricket Academy Manager</b>
+    <button id="logoutBtn" type="button" style="float:right">Logout</button>
+    <div id="who" style="font-size:12px;margin-top:5px"></div>
+  </header>
+  <div class="nav" id="nav"></div>
+  <main>
+    <section id="dash" class="page on"></section>
+    <section id="students" class="page"></section>
+    <section id="fees" class="page"></section>
+    <section id="reminders" class="page"></section>
+    <section id="staff" class="page"></section>
+    <section id="staffatt" class="page"></section>
+  </main>
+</div>
+
+<script src="/app.js" defer></script>
+</body>
+</html>
